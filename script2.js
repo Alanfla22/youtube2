@@ -16,6 +16,8 @@ input.addEventListener("submit", (e) => {
 
 })
 
+console.log(document.getElementById("playvideo"));
+
 let timer;
 let count = 0;
 let inicio;
@@ -32,10 +34,12 @@ function startCountdown() {
         clearInterval(timer);
         myDisplayer("Finished!");
         tempo = count;
-        document.getElementById("loop").innerHTML = "replay";      
+        document.getElementById("loop").innerHTML = "replay";
+        document.getElementById("playvideo").disabled = false;      
         
     } else if (tempo == count){
 
+        document.getElementById("playvideo").disabled = true;
         player.seekTo(seconds=inicio);
         player.playVideo();
         myDisplayer("Looping...");
@@ -43,7 +47,7 @@ function startCountdown() {
     }    
     
     else {
-
+        document.getElementById("playvideo").disabled = true;
         player.playVideo();
         document.getElementById("loop").innerHTML = "stop_circle";
         inicio = player.getCurrentTime();
@@ -110,6 +114,7 @@ if (event.data == YT.PlayerState.PLAYING && tempo) {
 
 function pauseVideo() {
 player.pauseVideo();
+document.getElementById("playvideo").disabled = false;
 
 }
 

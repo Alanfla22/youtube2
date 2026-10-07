@@ -116,16 +116,25 @@ min-height: 30px;
 
 /* Responsividade */
 @media (max-width: 768px) {
-body {
-padding: 15px;
+    body {
+    padding: 15px;
+    }
+
+    button,
+    input[type="submit"] {
+    width: 100%;
+    }
+
+    form {
+    width: 100%;
+    }
 }
 
-button,
-input[type="submit"] {
-width: 100%;
-}
 
-form {
-width: 100%;
-}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }

@@ -4,23 +4,21 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="styles2.css" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=play_pause,stop_circle,radio_button_checked,replay" />
+      
   </head>  
   <body>
     <div class="container">
-    <div class="responsive-iframe" id="player"
-            width="640" height="390"
-            frameborder="0"
+      <div class="responsive-iframe" id="player"
+              width="640" height="390"
+              frameborder="0"
 
-    ></div>
-    <div>
-      <button onclick=player.pauseVideo()>Pausa</button>
-      <button onclick=player.playVideo()>Play</button>
+      ></div>
     </div>
-    <br>
     <div>
-      <button onclick="startCountdown()">Start Countdown</button>
-      <button onclick="limparLoop()">Limpar</button>  
-    </div>  
+      <button onclick=playVideo()><span id="playpause" class="material-symbols-outlined">play_pause</span></button>
+      <button onclick="startCountdown()"><span id="loop" class="material-symbols-outlined">radio_button_checked</span></button>
+    </div>
     <p id="demo"></p>
     <br>
     <form id="inputId">

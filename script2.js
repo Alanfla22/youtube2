@@ -25,26 +25,34 @@ let tempo;
 
 function startCountdown() {
 
-myDisplayer(count);
-
-if (count !== 0) {
-    player.pauseVideo();
-    clearInterval(timer);
-    myDisplayer("Finished!");
-    tempo = count;
-    count = 0;
-    player.seekTo(seconds=inicio);
-} else {
-
-    player.playVideo();
-    tempo = undefined;
-    inicio = player.getCurrentTime();
-    timer = setInterval(function() {
-    count++;
     myDisplayer(count);
-    }, 1000);          
 
-}       
+    if (count !== 0 & !tempo) {
+        player.pauseVideo();
+        clearInterval(timer);
+        myDisplayer("Finished!");
+        tempo = count;
+        document.getElementById("loop").innerHTML = "replay";      
+        
+    } else if (tempo == count){
+
+        player.seekTo(seconds=inicio);
+        player.playVideo();
+        myDisplayer("Looping...");
+
+    }    
+    
+    else {
+
+        player.playVideo();
+        document.getElementById("loop").innerHTML = "stop_circle";
+        inicio = player.getCurrentTime();
+        timer = setInterval(function() {
+        count++;
+        myDisplayer(count);
+        }, 1000);          
+
+    }       
 
 
 }
@@ -94,42 +102,27 @@ event.target.playVideo();
 
 function onPlayerStateChange(event) {
 if (event.data == YT.PlayerState.PLAYING && tempo) {
-    setTimeout(seekTo, tempo * 1000);
+    setTimeout(pauseVideo, tempo * 1000);
     
 }
 }
 
 
-function seekTo() {
-player.seekTo(seconds=inicio);
+function pauseVideo() {
 player.pauseVideo();
 
-
 }
 
-function limparLoop() {
+function playVideo() {
+    document.getElementById("loop").innerHTML = "radio_button_checked";
+    tempo = undefined;
+    count = 0;
+    myDisplayer(" ");
 
-tempo = undefined;
-count = 0;
-clearInterval(timer);
-myDisplayer("Limpado!");        
-
-}
-
-// Let in01 listen for keydown
-document.addEventListener("keydown", function (event) {
-// If event.code was "enter", then display text
-if (event.key === "k") {
-    player.playVideo();
+    if (player.getPlayerState() == 1) {
+        player.pauseVideo();
+    } else {
+        player.playVideo();
+    }
 
 }
-});
-
-
-
-
-
-
-
-
-

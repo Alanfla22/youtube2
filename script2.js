@@ -16,7 +16,6 @@ input.addEventListener("submit", (e) => {
 
 })
 
-console.log(document.getElementById("playvideo"));
 
 let timer;
 let count = 0;
@@ -40,6 +39,7 @@ function startCountdown() {
     } else if (tempo == count){
 
         document.getElementById("playvideo").disabled = true;
+        document.getElementById("loopvideo").disabled = true;
         player.seekTo(seconds=inicio);
         player.playVideo();
         myDisplayer("Looping...");
@@ -115,6 +115,7 @@ if (event.data == YT.PlayerState.PLAYING && tempo) {
 function pauseVideo() {
 player.pauseVideo();
 document.getElementById("playvideo").disabled = false;
+document.getElementById("loopvideo").disabled = false;
 
 }
 

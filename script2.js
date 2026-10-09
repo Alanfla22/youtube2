@@ -162,14 +162,14 @@ const lista = d3.select("#lista").append("ul");
 
 for (var i = 0; i < localStorage.length; i++) {
 
-  var id = localStorage.key(i);
-
   lista.append("br");
 
   lista.append("li")
-  .text(localStorage.getItem(localStorage.key(i)))
-  .on("click", function() {
+  .attr("id", localStorage.key(i))
+  .text(localStorage.getItem(localStorage.key(i))) 
+  .on("click", function () {
 
+    const id = d3.select(this)._groups[0][0].id;
     loadVideo(id);
 
   });

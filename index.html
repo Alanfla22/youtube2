@@ -22,6 +22,13 @@
       </div>      
     </div>
     <p id="demo"></p>
+    <div id="container" class="container">
+      <details>
+        <summary>Lista de Vídeos</summary>
+        <div class="responsive-iframe" id="lista">    
+        </div>        
+      </details>
+    </div>      
     <button popovertarget="my-dialog">Open dialog</button>
     <dialog id="my-dialog" popover>
       <form id="inputId">
@@ -30,7 +37,11 @@
         <input type="submit" value="Submit">
       </form>
       <button popovertarget="my-dialog" popovertargetaction="hide">Close</button>
-    </dialog>    
+    </dialog>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script src="script2.js"></script>
   </body>
 </html>
+
+
+

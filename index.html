@@ -8,24 +8,29 @@
       
   </head>  
   <body>
-    <div class="container">
-      <div class="responsive-iframe" id="player"
-              width="640" height="390"
-              frameborder="0"
-
-      ></div>
-    </div>
-    <div>
-      <button id="playvideo" onclick=playVideo()><span id="playpause" class="material-symbols-outlined">play_pause</span></button>
-      <button id="loopvideo" onclick="startCountdown()"><span id="loop" class="material-symbols-outlined">radio_button_checked</span></button>
+    <div id="container" class="container">
+      <details>
+        <summary></summary>
+        <div class="responsive-iframe" id="player"
+                width="640" height="390"
+                frameborder="0"
+        ></div>        
+      </details>
+      <div>
+        <button id="playvideo" onclick=playVideo()><span id="playpause" class="material-symbols-outlined">play_pause</span></button>
+        <button id="loopvideo" onclick="startCountdown()"><span id="loop" class="material-symbols-outlined">radio_button_checked</span></button>
+      </div>      
     </div>
     <p id="demo"></p>
-    <br>
-    <form id="inputId">
-      <label for="fname">ID video</label><br>
-      <input type="text" id="fname" name="fname"><br>
-      <input type="submit" value="Submit">
-    </form>
+    <button popovertarget="my-dialog">Open dialog</button>
+    <dialog id="my-dialog" popover>
+      <form id="inputId">
+        <label for="fname">ID video</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        <input type="submit" value="Submit">
+      </form>
+      <button popovertarget="my-dialog" popovertargetaction="hide">Close</button>
+    </dialog>    
     <script src="script2.js"></script>
   </body>
 </html>

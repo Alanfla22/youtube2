@@ -13,6 +13,8 @@ input.addEventListener("submit", (e) => {
 
     idVideo = listaForm[0][1];
 
+    loadVideo(idVideo);
+    
 
 })
 
@@ -34,7 +36,8 @@ function startCountdown() {
         myDisplayer("Finished!");
         tempo = count;
         document.getElementById("loop").innerHTML = "replay";
-        document.getElementById("playvideo").disabled = false;      
+        document.getElementById("playvideo").disabled = false;
+        localStorage.setItem(idVideo, player.videoTitle);
         
     } else if (tempo == count){
 
@@ -43,6 +46,8 @@ function startCountdown() {
         player.seekTo(seconds=inicio);
         player.playVideo();
         myDisplayer("Looping...");
+         
+        
 
     }    
     
@@ -54,7 +59,8 @@ function startCountdown() {
         timer = setInterval(function() {
         count++;
         myDisplayer(count);
-        }, 1000);          
+        }, 1000); 
+                 
 
     }       
 
@@ -85,6 +91,7 @@ player = new YT.Player('player', {
     videoId: idVideo,
     playerVars: {
     'playsinline': 1,
+    'cc_load_policy': 0
     },
     events: {
     'onReady': onPlayerReady,
@@ -97,7 +104,9 @@ player = new YT.Player('player', {
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-event.target.playVideo();
+    event.target.playVideo();
+
+
 }
 
 // 5. The API calls this function when the player's state changes.
@@ -105,21 +114,24 @@ event.target.playVideo();
 //    the player should play for six seconds and then stop.
 
 function onPlayerStateChange(event) {
-if (event.data == YT.PlayerState.PLAYING && tempo) {
-    setTimeout(pauseVideo, tempo * 1000);
-    
-}
+    if (event.data == YT.PlayerState.PLAYING && tempo) {
+        setTimeout(pauseVideo, tempo * 1000);
+   
+        
+    }
 }
 
 
 function pauseVideo() {
-player.pauseVideo();
-document.getElementById("playvideo").disabled = false;
-document.getElementById("loopvideo").disabled = false;
+    player.pauseVideo();
+    document.getElementById("playvideo").disabled = false;
+    document.getElementById("loopvideo").disabled = false;
 
 }
 
 function playVideo() {
+    
+
     document.getElementById("loop").innerHTML = "radio_button_checked";
     tempo = undefined;
     count = 0;
@@ -130,5 +142,19 @@ function playVideo() {
     } else {
         player.playVideo();
     }
+    
+    
+    
+
 
 }
+
+function loadVideo(idVideo) {
+
+    player.loadVideoByUrl({mediaContentUrl: `http://www.youtube.com/v/${idVideo}?version=3`});
+
+    playVideo();    
+
+}
+
+

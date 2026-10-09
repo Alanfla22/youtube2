@@ -158,3 +158,27 @@ function loadVideo(idVideo) {
 }
 
 
+const lista = d3.select("#lista").append("ul");
+
+for (var i = 0; i < localStorage.length; i++) {
+
+  var id = localStorage.key(i);
+
+  lista.append("br");
+
+  lista.append("li")
+  .text(localStorage.getItem(localStorage.key(i)))
+  .on("click", function() {
+
+    loadVideo(id);
+
+  });
+
+  
+}
+
+
+
+
+
+

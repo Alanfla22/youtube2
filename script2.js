@@ -53,6 +53,7 @@ function startCountdown() {
             if (fim < player.getCurrentTime()) {
                 document.getElementById("playvideo").disabled = false;
                 player.pauseVideo();
+                myDisplayer("Loop or Play");
 
             }    
                 

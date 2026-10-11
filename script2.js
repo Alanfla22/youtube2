@@ -20,9 +20,11 @@ input.addEventListener("submit", (e) => {
 
 
 let timer;
+let timerPlay;
 let count = 0;
 let inicio;
 let tempo;
+let fim;
 
 
 
@@ -32,21 +34,32 @@ function startCountdown() {
 
     if (count !== 0 & !tempo) {
         player.pauseVideo();
-        clearInterval(timer);
-        myDisplayer("Finished!");
-        tempo = count;
+        fim = player.getCurrentTime();
+        clearInterval(timer);        
+        tempo = count;        
         document.getElementById("loop").innerHTML = "replay";
         document.getElementById("playvideo").disabled = false;
         localStorage.setItem(idVideo, player.videoTitle);
+        myDisplayer("Loop or Play");
         
     } else if (tempo == count){
 
         document.getElementById("playvideo").disabled = true;
-        document.getElementById("loopvideo").disabled = true;
         player.seekTo(seconds=inicio);
         player.playVideo();
-        myDisplayer("Looping...");
-         
+        
+        timerPlay = setInterval(function() {
+
+            if (fim < player.getCurrentTime()) {
+                document.getElementById("playvideo").disabled = false;
+                player.pauseVideo();
+
+            }    
+                
+                
+
+        }, 1000);
+        myDisplayer("Looping...");        
         
 
     }    
@@ -57,8 +70,8 @@ function startCountdown() {
         document.getElementById("loop").innerHTML = "stop_circle";
         inicio = player.getCurrentTime();
         timer = setInterval(function() {
-        count++;
-        myDisplayer(count);
+            count++;
+            myDisplayer(count);
         }, 1000); 
                  
 
@@ -95,7 +108,6 @@ player = new YT.Player('player', {
     },
     events: {
     'onReady': onPlayerReady,
-    'onStateChange': onPlayerStateChange
     }
 });
 
@@ -113,28 +125,19 @@ function onPlayerReady(event) {
 //    The function indicates that when playing a video (state=1),
 //    the player should play for six seconds and then stop.
 
-function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING && tempo) {
-        setTimeout(pauseVideo, tempo * 1000);
-   
-        
-    }
-}
-
-
 function pauseVideo() {
     player.pauseVideo();
-    document.getElementById("playvideo").disabled = false;
-    document.getElementById("loopvideo").disabled = false;
-
+        
 }
 
 function playVideo() {
     
 
     document.getElementById("loop").innerHTML = "radio_button_checked";
+    fim = undefined
     tempo = undefined;
     count = 0;
+    clearInterval(timerPlay);
     myDisplayer(" ");
 
     if (player.getPlayerState() == 1) {
@@ -142,9 +145,6 @@ function playVideo() {
     } else {
         player.playVideo();
     }
-    
-    
-    
 
 
 }
@@ -176,9 +176,3 @@ for (var i = 0; i < localStorage.length; i++) {
 
   
 }
-
-
-
-
-
-

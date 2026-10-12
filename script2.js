@@ -177,3 +177,29 @@ for (var i = 0; i < localStorage.length; i++) {
 
   
 }
+
+// The callback function
+function myVelocity() {
+    document.getElementById("velocidade").style.opacity = 0;
+}
+
+
+
+function maisVelocidade() {
+    var velocidade = player.getPlaybackRate();
+    velocidade = velocidade + 0.1;
+    player.setPlaybackRate(velocidade);
+    document.getElementById("velocidade").innerHTML = velocidade.toFixed(1);
+    document.getElementById("velocidade").style.opacity = 1;
+    setTimeout(myVelocity, 1000); 
+}
+
+function menosVelocidade() {
+    var velocidade = player.getPlaybackRate();
+    velocidade = velocidade - 0.1;
+    player.setPlaybackRate(velocidade);
+    document.getElementById("velocidade").innerHTML = velocidade.toFixed(1);
+    document.getElementById("velocidade").style.opacity = 1;
+    setTimeout(myVelocity, 1000); 
+    
+}

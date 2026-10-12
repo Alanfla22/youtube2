@@ -209,3 +209,14 @@ input[type="submit"]:hover {
         width: 95%;
     }
 }
+
+#velocidade {
+  position: sticky;
+  top: 2px;
+  right: 0;
+  width: 70px;
+  height: 50px;
+  animation-name: myAnimation;
+  animation-duration: 4s;  
+
+}

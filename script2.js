@@ -38,20 +38,17 @@ function startCountdown() {
         clearInterval(timer);        
         tempo = count;        
         document.getElementById("loop").innerHTML = "replay";
-        document.getElementById("playvideo").disabled = false;
         localStorage.setItem(idVideo, player.videoTitle);
         myDisplayer("Loop or Play");
         
     } else if (tempo == count){
 
-        document.getElementById("playvideo").disabled = true;
         player.seekTo(seconds=inicio);
         player.playVideo();
         
         timerPlay = setInterval(function() {
 
             if (fim < player.getCurrentTime()) {
-                document.getElementById("playvideo").disabled = false;
                 player.pauseVideo();
                 myDisplayer("Loop or Play");
 
@@ -66,7 +63,6 @@ function startCountdown() {
     }    
     
     else {
-        document.getElementById("playvideo").disabled = true;
         player.playVideo();
         document.getElementById("loop").innerHTML = "stop_circle";
         inicio = player.getCurrentTime();
@@ -132,14 +128,18 @@ function pauseVideo() {
 }
 
 function playVideo() {
-    
+   
+    if (fim <= player.getCurrentTime()) {
 
-    document.getElementById("loop").innerHTML = "radio_button_checked";
-    fim = undefined
-    tempo = undefined;
-    count = 0;
-    clearInterval(timerPlay);
-    myDisplayer(" ");
+        document.getElementById("loop").innerHTML = "radio_button_checked";
+        fim = undefined
+        tempo = undefined;
+        count = 0;
+        clearInterval(timerPlay);
+        myDisplayer(" ");        
+
+    }
+
 
     if (player.getPlayerState() == 1) {
         player.pauseVideo();

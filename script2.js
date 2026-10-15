@@ -38,6 +38,7 @@ function startCountdown() {
         clearInterval(timer);        
         tempo = count;        
         document.getElementById("loop").innerHTML = "replay";
+        document.getElementById("playpause").disabled = false;
         localStorage.setItem(idVideo, player.videoTitle);
         myDisplayer("Loop or Play");
         
@@ -51,13 +52,15 @@ function startCountdown() {
             if (fim < player.getCurrentTime()) {
                 player.pauseVideo();
                 myDisplayer("Loop or Play");
+                document.getElementById("playpause").innerHTML = "play_pause";
 
             }    
                 
                 
 
         }, 1000);
-        myDisplayer("Looping...");        
+        myDisplayer("Looping...");
+        document.getElementById("playpause").innerHTML = "- 3";      
         
 
     }    
@@ -65,6 +68,7 @@ function startCountdown() {
     else {
         player.playVideo();
         document.getElementById("loop").innerHTML = "stop_circle";
+        document.getElementById("playpause").disabled = true;
         inicio = player.getCurrentTime();
         timer = setInterval(function() {
             count++;
@@ -129,22 +133,35 @@ function pauseVideo() {
 
 function playVideo() {
    
-    if (fim <= player.getCurrentTime()) {
+    if (fim > player.getCurrentTime()) {
+
+        if (player.getPlayerState() == 1) {
+            player.seekTo(seconds=player.getCurrentTime() - 3);
+            document.getElementById("playpause").innerHTML = "play_pause";
+            player.pauseVideo();
+        } else {
+            player.playVideo();
+            document.getElementById("playpause").innerHTML = "- 3";
+        }        
+
+      
+
+    } else {
 
         document.getElementById("loop").innerHTML = "radio_button_checked";
         fim = undefined
         tempo = undefined;
         count = 0;
         clearInterval(timerPlay);
-        myDisplayer(" ");        
+        myDisplayer(" "); 
+        
+        if (player.getPlayerState() == 1) {
+            player.pauseVideo();
+        } else {
+            player.playVideo();
+        }   
 
-    }
 
-
-    if (player.getPlayerState() == 1) {
-        player.pauseVideo();
-    } else {
-        player.playVideo();
     }
 
 
